@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>~/git/go-doc/building-microservices-with-go/chapter1/rpc/server/server.go.html</title>
+<meta name="Generator" content="Vim/8.2">
+<meta name="plugin-version" content="vim8.1_v2">
+<meta name="syntax" content="go">
+<meta name="settings" content="number_lines,use_css,pre_wrap,no_foldcolumn,expand_tabs,line_ids,prevent_copy=,use_input_for_pc=fallback">
+<meta name="colorscheme" content="PaperColor">
+<style>
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #444444; background-color: #eeeeee; }
+body { font-family: monospace; color: #444444; background-color: #eeeeee; }
+* { font-size: 1em; }
+.goDeclaration { color: #005faf; font-weight: bold; }
+.Special { color: #444444; }
+.Boolean { color: #008700; font-weight: bold; }
+.String { color: #5f8700; }
+.LineNr { color: #b2b2b2; background-color: #eeeeee; padding-bottom: 1px; }
+.Repeat { color: #8700af; font-weight: bold; }
+.goStatement { color: #d70087; }
+.goConditional { color: #8700af; font-weight: bold; }
+-->
+</style>
+
+<script>
+<!--
+
+/* function to open any folds containing a jumped-to line before jumping to it */
+function JumpToLine()
+{
+  var lineNum;
+  lineNum = window.location.hash;
+  lineNum = lineNum.substr(1); /* strip off '#' */
+
+  if (lineNum.indexOf('L') == -1) {
+    lineNum = 'L'+lineNum;
+  }
+  var lineElem = document.getElementById(lineNum);
+  /* Always jump to new location even if the line was hidden inside a fold, or
+   * we corrected the raw number to a line ID.
+   */
+  if (lineElem) {
+    lineElem.scrollIntoView(true);
+  }
+  return true;
+}
+if ('onhashchange' in window) {
+  window.onhashchange = JumpToLine;
+}
+
+-->
+</script>
+</head>
+<body onload='JumpToLine();'>
+<pre id='vimCodeElement'>
+<span id="L19" class="LineNr">19 </span><span class="goDeclaration">func</span> StartServer() {
+<span id="L20" class="LineNr">20 </span>    helloWorld := &amp;HelloWorldHandler{}
+<span id="L21" class="LineNr">21 </span>    rpc.Register(helloWorld)
+<span id="L22" class="LineNr">22 </span>
+<span id="L23" class="LineNr">23 </span>    l, err := net.Listen(<span class="String">&quot;tcp&quot;</span>, fmt.Sprintf(<span class="String">&quot;:</span><span class="Special">%v</span><span class="String">&quot;</span>, port))
+<span id="L24" class="LineNr">24 </span>    <span class="goConditional">if</span> err != <span class="Boolean">nil</span> {
+<span id="L25" class="LineNr">25 </span>        log.Fatal(fmt.Sprintf(<span class="String">&quot;Unable to listen on given port: </span><span class="Special">%s</span><span class="String">&quot;</span>, err))
+<span id="L26" class="LineNr">26 </span>    }
+<span id="L27" class="LineNr">27 </span>    <span class="goStatement">defer</span> l.Close()
+<span id="L28" class="LineNr">28 </span>
+<span id="L29" class="LineNr">29 </span>    <span class="Repeat">for</span> {
+<span id="L30" class="LineNr">30 </span>        conn, _ := l.Accept()
+<span id="L31" class="LineNr">31 </span>        <span class="goStatement">go</span> rpc.ServeConn(conn)
+<span id="L32" class="LineNr">32 </span>    }
+<span id="L33" class="LineNr">33 </span>}
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->
