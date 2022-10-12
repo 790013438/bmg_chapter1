@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	server.StartServer()
+	go server.StartServer()
 
 	c := client.CreateClient()
 	defer c.Close()
