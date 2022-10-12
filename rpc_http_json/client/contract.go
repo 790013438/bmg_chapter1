@@ -17,8 +17,10 @@ func PerformRequest() contract.HelloWorldResponse {
 	defer r.Body.Close()
 
 	decoder := json.NewDecoder(r.Body)
-	var response contract.HelloWorldResponse
+	var response struct {
+		Result contract.HelloWorldResponse
+	}
 	decoder.Decode(&response)
 
-	return response
+	return response.Result
 }
